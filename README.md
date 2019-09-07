@@ -2,6 +2,10 @@
 a pwa version of the game
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# TODO
+classes fine but if get redux working, need to have interface versions without methods
+will no longer be objects in memory
+
 ## Available Scripts
 
 In the project directory, you can run:
