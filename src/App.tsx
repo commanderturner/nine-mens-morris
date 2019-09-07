@@ -9,6 +9,8 @@ import {
   IonCardTitle,
   IonCardSubtitle
 } from '@ionic/react';
+import { GameBoard } from './components/Gameboard';
+import { NewGameButton } from './components/NewGameButton';
 
 class App extends Component {
   componentDidMount(){
@@ -23,7 +25,9 @@ class App extends Component {
               <IonCardSubtitle>Welcome to Nine Men's Morris</IonCardSubtitle>
               <IonCardTitle>HTML version of the game</IonCardTitle>
             </IonCardHeader>
+            <NewGameButton />
           </IonCard>
+          <GameBoard/>
         </IonContent>
       </IonApp>
     );
