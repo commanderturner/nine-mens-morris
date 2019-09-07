@@ -10,7 +10,7 @@ import {
   IonCardSubtitle
 } from '@ionic/react';
 import { GameBoard } from './components/Gameboard';
-import { NewGameButton } from './components/NewGameButton';
+import NewGameButton from './components/NewGameButton';
 
 class App extends Component {
   componentDidMount(){
@@ -27,7 +27,7 @@ class App extends Component {
             </IonCardHeader>
             <NewGameButton />
           </IonCard>
-          <GameBoard/>
+          <IonCard><GameBoard/></IonCard>
         </IonContent>
       </IonApp>
     );

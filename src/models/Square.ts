@@ -13,7 +13,7 @@ export class Square {
     constructor(id: number){
         this.id = id;
         for(let i = 0; i++; i < 8){
-            this.nodes.push(new SquareNode(id, <SquareNodePosition>i));
+            this.nodes.push(new SquareNode(id, i as SquareNodePosition));
         }
     }
     public readonly id: number;
