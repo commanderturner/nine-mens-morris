@@ -12,7 +12,8 @@ import {
 import { GameBoard } from './components/Gameboard';
 import NewGameButton from './components/NewGameButton';
 
-class App extends Component {
+interface AppProps {}
+class App extends Component<AppProps> {
   componentDidMount(){
     
   }
@@ -25,7 +26,7 @@ class App extends Component {
               <IonCardSubtitle>Welcome to Nine Men's Morris</IonCardSubtitle>
               <IonCardTitle>HTML version of the game</IonCardTitle>
             </IonCardHeader>
-            <NewGameButton />
+            <NewGameButton/>
           </IonCard>
           <IonCard><GameBoard/></IonCard>
         </IonContent>
@@ -33,5 +34,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

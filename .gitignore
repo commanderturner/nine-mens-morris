@@ -1,3 +1,5 @@
+# build until deploying somewhere
+build
 # Logs
 logs
 *.log

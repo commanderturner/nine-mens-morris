@@ -1,6 +1,5 @@
-import { SquareNode, NodeOccupationStatus } from "./SquareNode";
-import { node } from "prop-types";
-import { PlayerId } from "./Game";
+import { NodeOccupationStatus, IBoardNode } from "./BoardNode";
+import { PlayerId } from "./Player";
 
 
 /**
@@ -11,29 +10,21 @@ import { PlayerId } from "./Game";
  * @class Line
  */
 export class Line {
-    constructor(id: string, nodes: Array<SquareNode>, orientation: LineOrientation){
-        this._id = id;
-        this._nodes = nodes;
-        this._orientation = orientation;
+    constructor(id: string, nodes: Array<IBoardNode>, orientation: LineOrientation){
+        this.id = id;
+        this.nodes= nodes;
+        this.orientation = orientation;
     }
-    private _id: string;
-    private _nodes: Array<SquareNode>
-    private _orientation: LineOrientation;
-    public get id():string{
-        return this._id;
-    }
-    public get nodes(): Array<SquareNode>{
-        return this._nodes;
-    }
-    public get orientation(): LineOrientation{
-        return this._orientation;
-    }
+    private id: string;
+    private nodes: Array<IBoardNode>
+    private orientation: LineOrientation;
+
     public getLineData(): LineData{
-        const lineOccupationStatus = this._nodes.every(node => node.occupationStatus === 'blue') 
-        ? 'blue' as PlayerId
-        : this._nodes.every(node => node.occupationStatus === 'red') 
-            ? 'red' as PlayerId
-            : this._nodes.every(node => node.occupationStatus === null)
+        const lineOccupationStatus = this.nodes.every(node => node.occupationStatus === 1) 
+        ? 1 as PlayerId
+        : this.nodes.every(node => node.occupationStatus === 2) 
+            ? 2 as PlayerId
+            : this.nodes.every(node => node.occupationStatus === null)
                 ? null
                 : 'mixed';
         let isMill = lineOccupationStatus === null  || lineOccupationStatus === 'mixed' ? false : true;
