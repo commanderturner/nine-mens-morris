@@ -1,12 +1,12 @@
 import React, {FunctionComponent} from 'react';
 import { Rect } from 'react-konva';
 import Konva from 'konva';
-type BoardNodeProps = {
+type NodeComponentProps = {
     x: number,
     y: number, 
     colour: string,
 }
-export const BoardNode: FunctionComponent<BoardNodeProps> = ({x, y, colour}) => {
+export const NodeComponent: FunctionComponent<NodeComponentProps> = ({x, y, colour}) => {
     
     const handleClick = () => {
         alert('you want this colour' +Konva.Util.getRandomColor());
@@ -16,10 +16,10 @@ export const BoardNode: FunctionComponent<BoardNodeProps> = ({x, y, colour}) => 
         <Rect
           x={x}
           y={y}
-          width={50}
-          height={50}
+          width={10}
+          height={10}
           fill={colour}
-          shadowBlur={5}
+          shadowBlur={2}
           onClick={handleClick}
         />
       );

@@ -6,7 +6,8 @@ import {
   
   const initialState: GameState = {
     players: [],
-    nodes: []
+    nodes: [],
+    squares: [],
   };
   
   export function gameReducer(
@@ -18,6 +19,7 @@ import {
         const newState = {...state};
         newState.players = action.payload.players;
         newState.nodes = action.payload.nodes;
+        newState.squares = action.payload.squares;
         return newState
       };
       default:

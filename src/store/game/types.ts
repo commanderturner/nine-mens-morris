@@ -1,9 +1,11 @@
 import { IBoardNode } from "../../models/BoardNode";
 import { IPlayer } from "../../models/Player";
+import { ISquare } from "../../models/Square";
   
   export interface GameState {
     players: IPlayer[];
     nodes: IBoardNode[];
+    squares: ISquare[];
   }
   
   // Describing the different ACTION NAMES available
@@ -15,6 +17,7 @@ import { IPlayer } from "../../models/Player";
     payload: {
       players: IPlayer[];
       nodes: IBoardNode[];
+      squares: ISquare[];
     };
   }
   

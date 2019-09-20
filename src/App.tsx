@@ -9,7 +9,7 @@ import {
   IonCardTitle,
   IonCardSubtitle
 } from '@ionic/react';
-import { GameBoard } from './components/Gameboard';
+import GameBoardComponent from './components/GameBoardComponent';
 import NewGameButton from './components/NewGameButton';
 
 interface AppProps {}
@@ -28,7 +28,7 @@ class App extends Component<AppProps> {
             </IonCardHeader>
             <NewGameButton/>
           </IonCard>
-          <IonCard><GameBoard/></IonCard>
+          <IonCard><GameBoardComponent/></IonCard>
         </IonContent>
       </IonApp>
     );
