@@ -1,16 +1,16 @@
 import {
     GameActionTypes,
-    GameState,
+    IGameState,
     SET_GAME_STATE,
     SetGameSizesAction,
     SetGameStateAction,
     SET_GAME_SIZES
   } from "./types";
   
-  const initialState: GameState = {
-    players: [],
-    nodes: [],
-    squares: [],
+  const initialState: IGameState = {
+    players: {},
+    nodes: {},
+    squares: {},
     sizes: {
       baseUnits: {
         boardAreaLength: 8,
@@ -26,7 +26,7 @@ import {
   export function gameReducer(
     state = initialState,
     action: GameActionTypes
-  ): GameState {
+  ): IGameState {
     switch (action.type) {
       case SET_GAME_STATE:{
         const newState = {...state};

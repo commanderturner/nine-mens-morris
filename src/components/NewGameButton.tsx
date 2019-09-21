@@ -13,7 +13,7 @@ const NewGameButton: FunctionComponent<NewGameButtonProps> = ({setGameState}) =>
     const handleClick = () => {
         // alert('you asked for a new game');
         const game = new Game();
-        setGameState(game.players, game.boardNodes, game.squares)
+        setGameState(game.players, game.nodes, game.squares)
     };
 
       return (

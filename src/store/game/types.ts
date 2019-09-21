@@ -11,10 +11,10 @@ export interface ISizes {
     height: number;
   }
 }
-  export interface GameState {
-    players: IPlayer[];
-    nodes: IBoardNode[];
-    squares: ISquare[];
+  export interface IGameState {
+    players: {[id: number]: IPlayer};
+    nodes: {[id:string]:IBoardNode};
+    squares: {[id:number]: ISquare};
     sizes: ISizes;
   }
   
@@ -25,9 +25,9 @@ export interface ISizes {
   export interface SetGameStateAction {
     type: typeof SET_GAME_STATE;
     payload: {
-      players: IPlayer[];
-      nodes: IBoardNode[];
-      squares: ISquare[];
+      players: {[id: number]: IPlayer};
+      nodes: {[id:string]:IBoardNode};
+      squares: {[id:number]: ISquare};
     };
   }
 

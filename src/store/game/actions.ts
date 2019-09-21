@@ -4,7 +4,7 @@ import { IPlayer } from "../../models/Player";
 import { ISquare } from "../../models/Square";
 
 
-export function setGameState(players: IPlayer[], nodes: IBoardNode[], squares: ISquare[]) {
+export function setGameState(players: {[id: number]: IPlayer},nodes: {[id:string]:IBoardNode},squares: {[id:number]: ISquare}) {
   return {
     type: SET_GAME_STATE,
     payload: {

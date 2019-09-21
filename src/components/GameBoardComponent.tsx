@@ -8,8 +8,8 @@ import { AppState } from '../store';
 import { ISquare } from '../models/Square';
  
 type GameBoardComponentProps = {
-  nodes: IBoardNode[],
-  squares: ISquare[],
+  nodes: {[id:string]:IBoardNode};
+  squares: {[id:number]: ISquare};
 }
 // [TODO] put nodes in separate dictionary
 // game has multiplier (eg100) and node size (offset on lines)
@@ -19,8 +19,8 @@ type GameBoardComponentProps = {
 // once created stored in state
 // components use multipliers to draw/hide show lines on game update or eg screen resize
 const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, squares}) =>{
-  const boardNodeComponents = nodes.map((node: IBoardNode) => {
-    const {x, y} = node.baseCoordinate;
+  const boardNodeComponents = Object.keys(nodes).map((nodeKey: string) => {
+    const {x, y} = nodes[nodeKey].baseCoordinate;
     return <NodeComponent x={x * 50} y={y * 50} colour='green' />
   });
   if (squares) console.info('squares');
