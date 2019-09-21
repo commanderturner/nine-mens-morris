@@ -2,7 +2,6 @@ import { BoardNode, IBoardNode, BoardNodePosition } from "./BoardNode";
 export interface ISquare {
     id: SquareId;
     baseUnitDetails: BaseUnitDetails;
-    nodes: IBoardNode[];
 }
  //4: container base length = 8(squareid * 2) units left = 0, middle = left(0) + (length/2)(8/2) = 4, right = left(0) + length = 8
         //3: outer base length = 6(squareid * 2) units left = 1, middle = left(1) + (length/2)(6/2) = 4, right = left(1) + length = 7
@@ -31,19 +30,21 @@ export class Square {
             middle,
             right, 
         }
-        Square.boardNodePositions.forEach(position => {
-            this.nodes.push(new BoardNode(id, position).poco);
-        });
     }
     public readonly id: SquareId;
-    public nodes : Array<IBoardNode> = [];
     public baseUnitDetails: BaseUnitDetails;
     public get poco() : ISquare{
         return {
             id: this.id,
-            nodes: this.nodes,
             baseUnitDetails: this.baseUnitDetails,
         }
+    }
+    public getNodes(): IBoardNode[]{
+        const nodes : IBoardNode[] = [];
+        Square.boardNodePositions.forEach(position => {
+            nodes.push(new BoardNode(this.id, position).poco);
+        });
+        return nodes;
     }
 }
 

@@ -12,17 +12,16 @@ export class Game implements IGame {
     public static squaresIds: SquareId[] = [1, 2, 3];
     constructor(){
         this.players = [new Player(1, true, 'red').poco, new Player(2, false, 'blue').poco];
-        const squares: Square[] = [];
-        Game.squaresIds.forEach(id => squares.push(new Square(id)));
-        squares.forEach(square =>{
-            // console.info(square)
-            square.nodes.forEach(squareNode=> {
+    
+        Game.squaresIds.forEach(id => {
+            const square = new Square(id);
+            const squareNodes = square.getNodes();
+            squareNodes.forEach(squareNode=> {
                 // console.info(squareNode)
                 this.boardNodes.push(squareNode);
-            })
+            });
             this.squares.push(square.poco)
         });
-
     }
     public players : IPlayer[];
     public boardNodes: IBoardNode[] = [];
