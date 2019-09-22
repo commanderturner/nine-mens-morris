@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import { Line } from 'react-konva';
 import Konva from 'konva';
-type BoardLineProps = {
+export type BoardLineProps = {
     x1: number,
     x2: number,
     y1: number, 

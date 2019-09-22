@@ -1,4 +1,5 @@
 import { BoardNode, IBoardNode, BoardNodePosition } from "./BoardNode";
+import { ILine, Line, LineOrientation, LinePostion } from "./Line";
 export interface ISquare {
     id: SquareId;
     baseUnitDetails: BaseUnitDetails;
@@ -21,14 +22,14 @@ export class Square {
     constructor(id: SquareId){
         this.id = id;
         const length = id*2;
-        const left = 4 - id;
-        const middle = left + (id);
-        const right = left + length;
+        const min = 4 - id;
+        const middle = min + (id);
+        const max = min + length;
         this.baseUnitDetails = {
             length,
-            left,
+            min,
             middle,
-            right, 
+            max,
         }
     }
     public readonly id: SquareId;
@@ -46,12 +47,37 @@ export class Square {
         });
         return nodes;
     }
+    // square's lines start 1-top, 2-right, 3-bottom, 4-left
+    public getLines(): ILine[]{
+        const lines = [];
+        const nodesAsDictionary = this.getNodes().reduce((dictionary, node)=> {
+            dictionary[node.id] = node;
+            return dictionary
+        }, {} as {[id: string]: IBoardNode});
+        for(let i= 1; i <= 4; i++){
+            const nodesForLine = this.getNodesForLine(i as LinePostion, nodesAsDictionary);
+            const line = new Line(`${this.id}-${i}`, i as LinePostion, nodesForLine,this.getOrientationFromId(i) );
+            lines.push(line.poco);
+        }
+        return lines;
+    }
+    private getOrientationFromId(id: number): LineOrientation {
+        return id % 2 === 0 ? 'vertical' : 'horizontal';
+    }
+    private getNodesForLine(position: LinePostion, nodesAsDictionary: {[id: string]: IBoardNode}): IBoardNode[]{
+        const startNode = position === 1 ? 1 : position === 2 ? 3 : position === 3 ? 5 : 7; 
+        const middleNode = startNode + 1;
+        const endNode = startNode + 2 > 8 ? 1 : startNode + 2;
+        const nodeIds = [`${this.id}-${startNode}`, `${this.id}-${middleNode}`, `${this.id}-${endNode}`];
+        const nodes = nodeIds.map(nodeId => nodesAsDictionary[nodeId]);
+        return nodes;
+    }
 }
 
 export type SquareId = 1 | 2 | 3;
 export type BaseUnitDetails = {
     length: number;
-    left: number;
+    min: number;
     middle: number;
-    right: number;
+    max: number;
 }

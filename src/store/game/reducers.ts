@@ -11,10 +11,12 @@ import {
     players: {},
     nodes: {},
     squares: {},
+    lines: {},
     sizes: {
       baseUnits: {
         boardAreaLength: 8,
         baseMultiplier: 100,
+        squareSize: 10,
       },
       window: {
         width: 800,
@@ -34,6 +36,7 @@ import {
         newState.players = payload.players;
         newState.nodes = payload.nodes;
         newState.squares = payload.squares;
+        newState.lines = payload.lines;
         return newState
       };
       case SET_GAME_SIZES:{

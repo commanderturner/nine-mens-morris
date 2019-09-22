@@ -30,6 +30,7 @@ class App extends Component<AppProps> {
     const sizes = {...this.props.sizes};
     sizes.window = windowDimensions;
     sizes.baseUnits.baseMultiplier = baseMultiplier;
+    sizes.baseUnits.squareSize = Math.round(baseMultiplier / 10);
     this.props.setGameSizes(sizes);
   }
   componentDidMount(){

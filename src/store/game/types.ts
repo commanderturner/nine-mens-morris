@@ -1,10 +1,12 @@
 import { IBoardNode } from "../../models/BoardNode";
 import { IPlayer } from "../../models/Player";
 import { ISquare } from "../../models/Square";
+import { ILine } from "../../models/Line";
 export interface ISizes {
   baseUnits: {
     boardAreaLength: number;
     baseMultiplier: number;
+    squareSize: number;
   }
   window: {
     width: number;
@@ -15,6 +17,7 @@ export interface ISizes {
     players: {[id: number]: IPlayer};
     nodes: {[id:string]:IBoardNode};
     squares: {[id:number]: ISquare};
+    lines: {[id: string]:ILine};
     sizes: ISizes;
   }
   
@@ -28,6 +31,7 @@ export interface ISizes {
       players: {[id: number]: IPlayer};
       nodes: {[id:string]:IBoardNode};
       squares: {[id:number]: ISquare};
+      lines: {[id:string]: ILine};
     };
   }
 
