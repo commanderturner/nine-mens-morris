@@ -1,7 +1,7 @@
 import { Square, SquareId, ISquare } from "./Square";
 import { IBoardNode } from "./BoardNode";
 import { IPlayer, Player } from "./Player";
-import { ILine } from "./Line";
+import { ILine, Line } from "./Line";
 
 export interface IGame {
     players: {[id: number]: IPlayer};
@@ -28,7 +28,30 @@ export class Game implements IGame {
             const squareLines = square.getLines();
             squareLines.forEach(line => this.lines[line.id] = line)
         });
+        const middleLines = this.getMiddleLines();
+        middleLines.forEach(middleLine=>{
+            this.lines[middleLine.id] = middleLine;
+        })
     }
+    private getMiddleLines(): ILine[]{
+            const lines = [];
+            const squareIds = Object.keys(this.squares);
+            for(let i= 5; i <= 8; i++){
+                const nodesForLine: IBoardNode[] = []
+                const linePosition = Line.getPositionFromNumberLookup(i);
+                const nodePosition = Line.getNodePositionForMiddleLine(linePosition);
+                squareIds.forEach((squareId)=>{
+                    const nodeId = `${squareId}-${nodePosition}`
+                    const node = this.nodes[nodeId];
+                    nodesForLine.push(node);
+                })
+                const line = new Line(`${linePosition}`, linePosition, nodesForLine,Line.getOrientationFromId(i,true) );
+                lines.push(line.poco);
+            }
+            return lines;
+    }
+
+
     public players : {[id: number]: IPlayer};
     public nodes: {[id:string]:IBoardNode} = {};
     public squares: {[id:number]: ISquare} = {};

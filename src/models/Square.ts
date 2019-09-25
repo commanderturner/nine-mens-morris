@@ -1,5 +1,5 @@
 import { BoardNode, IBoardNode, BoardNodePosition } from "./BoardNode";
-import { ILine, Line, LineOrientation, LinePostion } from "./Line";
+import { ILine, Line, LinePostion } from "./Line";
 export interface ISquare {
     id: SquareId;
     baseUnitDetails: BaseUnitDetails;
@@ -55,17 +55,16 @@ export class Square {
             return dictionary
         }, {} as {[id: string]: IBoardNode});
         for(let i= 1; i <= 4; i++){
-            const nodesForLine = this.getNodesForLine(i as LinePostion, nodesAsDictionary);
-            const line = new Line(`${this.id}-${i}`, i as LinePostion, nodesForLine,this.getOrientationFromId(i) );
+            const linePosition = Line.getPositionFromNumberLookup(i);
+            const nodesForLine = this.getNodesForLine(linePosition, nodesAsDictionary);
+            const line = new Line(`${this.id}-${linePosition}`, linePosition, nodesForLine,Line.getOrientationFromId(i) );
             lines.push(line.poco);
         }
         return lines;
     }
-    private getOrientationFromId(id: number): LineOrientation {
-        return id % 2 === 0 ? 'vertical' : 'horizontal';
-    }
+
     private getNodesForLine(position: LinePostion, nodesAsDictionary: {[id: string]: IBoardNode}): IBoardNode[]{
-        const startNode = position === 1 ? 1 : position === 2 ? 3 : position === 3 ? 5 : 7; 
+        const startNode = position === 'top' ? 1 : position === 'right' ? 3 : position === 'bottom' ? 5 : 7; 
         const middleNode = startNode + 1;
         const endNode = startNode + 2 > 8 ? 1 : startNode + 2;
         const nodeIds = [`${this.id}-${startNode}`, `${this.id}-${middleNode}`, `${this.id}-${endNode}`];
