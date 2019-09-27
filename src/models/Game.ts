@@ -7,15 +7,8 @@ export class Game implements IGamePieces {
     // square ids outside in ie: 1:outer, 2: middle, 3: inner
     public static squaresIds: SquareId[] = [1, 2, 3];
     constructor(){
-        this.players = {
-            1: new Player(1, true, 'red').poco,
-            2: new Player(2, false, 'blue').poco
-        };
-        let counters: ICounterDictionary = {};
-        Object.keys(this.players).forEach(playerId=>{
-            counters = {...counters, ...Player.getCounters(this.players[Number(playerId)])}
-        })
-        this.counters = counters;
+        this.players = this.getNewPlayers();
+        this.counters = this.getNewCounters();
         Game.squaresIds.forEach(id => {
             const square = new Square(id);
             const squareNodes = square.getNodes();
@@ -50,7 +43,19 @@ export class Game implements IGamePieces {
             return lines;
     }
 
-
+    private getNewPlayers(): IPlayerDictionary{
+        return {
+            1: new Player(1, true, 'red').poco,
+            2: new Player(2, false, 'blue').poco
+        };
+    }
+    private getNewCounters(): ICounterDictionary{
+        let counters: ICounterDictionary = {};
+        Object.keys(this.players).forEach(playerId=>{
+            counters = {...counters, ...Player.getCounters(this.players[Number(playerId)])}
+        })
+        return counters;
+    }
     public players : IPlayerDictionary;
     public nodes:INodeDictionary = {};
     public squares: ISquareDictionary = {};
