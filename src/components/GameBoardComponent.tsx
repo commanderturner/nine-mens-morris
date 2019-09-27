@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import {connect } from 'react-redux';
-import { Stage, Layer, Text } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 import { BoardLine } from './BoardLine';
 import { IBoardNode } from '../models/BoardNode';
 import { NodeComponent } from './NodeComponent';
@@ -41,12 +41,11 @@ const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, 
     // Stage is a div container
     // Layer is actual canvas element (so you may have several canvases in the stage)
     // And then we have canvas shapes inside the Layer
-      <Stage width={window.innerWidth} height={window.innerHeight}>
+      <Stage id={'stage'} width={window.innerWidth * 0.8} height={window.innerWidth * 0.8}>
         <Layer>
           {lineComponents}
         </Layer>
         <Layer>
-          <Text text="Try click on rect" />
           {boardNodeComponents}
         </Layer>
       </Stage>

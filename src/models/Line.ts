@@ -36,21 +36,6 @@ export class Line {
     public isMill: boolean;
     public occupationStatus: LineOccupationStatus;
     public position: LinePostion;
-    // public getLineData(): LineData {
-    //     const lineOccupationStatus = this.nodes.every(node => node.occupationStatus === 1) 
-    //     ? 1 as PlayerId
-    //     : this.nodes.every(node => node.occupationStatus === 2) 
-    //         ? 2 as PlayerId
-    //         : this.nodes.every(node => node.occupationStatus === null)
-    //             ? null
-    //             : 'mixed';
-    //     let isMill = lineOccupationStatus === null  || lineOccupationStatus === 'mixed' ? false : true;
-    //     const lineData: LineData = {
-    //         isMill, 
-    //         lineOccupationStatus,
-    //     }
-    //     return lineData;
-    // }
     public get poco(): ILine {
         return {
             id: this.id,

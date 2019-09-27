@@ -8,13 +8,15 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle
+  IonCardSubtitle,
+  IonCardContent
 } from '@ionic/react';
 import GameBoardComponent from './components/GameBoardComponent';
 import NewGameButton from './components/NewGameButton';
 import { AppState } from './store';
 import { ISizes } from './store/game/types';
 import { setGameSizes } from './store/game/actions';
+import PlayerInfoComponent from './components/PlayerInfoComponent';
 
 interface AppProps {
   sizes: ISizes;
@@ -26,7 +28,7 @@ class App extends Component<AppProps> {
       height: window.innerHeight,
       width: window.innerWidth,
     };
-    const baseMultiplier = windowDimensions.width / this.props.sizes.baseUnits.boardAreaLength;
+    const baseMultiplier = (windowDimensions.width * 0.8) / this.props.sizes.baseUnits.boardAreaLength;
     const sizes = {...this.props.sizes};
     sizes.window = windowDimensions;
     sizes.baseUnits.baseMultiplier = baseMultiplier;
@@ -46,12 +48,19 @@ class App extends Component<AppProps> {
         <IonContent>
           <IonCard>
             <IonCardHeader>
-              <IonCardSubtitle>Welcome to Nine Men's Morris</IonCardSubtitle>
-              <IonCardTitle>HTML version of the game</IonCardTitle>
+              <IonCardSubtitle>A battle of mills</IonCardSubtitle>
+              <IonCardTitle>Nine Men's Morris</IonCardTitle>
             </IonCardHeader>
-            <NewGameButton/>
+            <IonCardContent><NewGameButton/></IonCardContent>
           </IonCard>
-          <IonCard><GameBoardComponent/></IonCard>
+          <IonCard id={'stage-card'}>
+            <IonCardHeader>
+              <PlayerInfoComponent />
+            </IonCardHeader>
+            <IonCardContent>
+              <GameBoardComponent/>
+            </IonCardContent>
+          </IonCard>
         </IonContent>
       </IonApp>
     );

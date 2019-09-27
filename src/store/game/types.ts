@@ -2,6 +2,20 @@ import { IBoardNode } from "../../models/BoardNode";
 import { IPlayer } from "../../models/Player";
 import { ISquare } from "../../models/Square";
 import { ILine } from "../../models/Line";
+import { ICounter } from "../../models/Counter";
+
+export type IPlayerDictionary = {[id: number]: IPlayer};
+export type INodeDictionary = {[id:string]:IBoardNode};
+export type ISquareDictionary = {[id:number]: ISquare};
+export type ILineDictionary= {[id: string]:ILine};
+export type ICounterDictionary= {[id: string]:ICounter};
+export interface IGamePieces {
+  players: IPlayerDictionary;
+  nodes: INodeDictionary;
+  squares: ISquareDictionary;
+  lines: ILineDictionary;
+  counters: ICounterDictionary;
+}
 export interface ISizes {
   baseUnits: {
     boardAreaLength: number;
@@ -13,26 +27,17 @@ export interface ISizes {
     height: number;
   }
 }
-  export interface IGameState {
-    players: {[id: number]: IPlayer};
-    nodes: {[id:string]:IBoardNode};
-    squares: {[id:number]: ISquare};
-    lines: {[id: string]:ILine};
+  export interface IGameState extends IGamePieces{
     sizes: ISizes;
   }
   
   // Describing the different ACTION NAMES available
-  export const SET_GAME_STATE = 'SET_GAME_STATE';
+  export const SET_GAME_PIECES = 'SET_GAME_PIECES';
   export const SET_GAME_SIZES = 'SET_GAME_SIZES';
 
-  export interface SetGameStateAction {
-    type: typeof SET_GAME_STATE;
-    payload: {
-      players: {[id: number]: IPlayer};
-      nodes: {[id:string]:IBoardNode};
-      squares: {[id:number]: ISquare};
-      lines: {[id:string]: ILine};
-    };
+  export interface SetGamePiecesAction {
+    type: typeof SET_GAME_PIECES;
+    payload: IGamePieces;
   }
 
   export interface SetGameSizesAction {
@@ -42,5 +47,5 @@ export interface ISizes {
     };
   }
   
-  export type GameActionTypes = SetGameStateAction | SetGameSizesAction;
+  export type GameActionTypes = SetGamePiecesAction | SetGameSizesAction;
   

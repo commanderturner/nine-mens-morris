@@ -1,9 +1,9 @@
 import {
     GameActionTypes,
     IGameState,
-    SET_GAME_STATE,
+    SET_GAME_PIECES,
     SetGameSizesAction,
-    SetGameStateAction,
+    SetGamePiecesAction,
     SET_GAME_SIZES
   } from "./types";
   
@@ -12,6 +12,7 @@ import {
     nodes: {},
     squares: {},
     lines: {},
+    counters: {},
     sizes: {
       baseUnits: {
         boardAreaLength: 8,
@@ -30,13 +31,14 @@ import {
     action: GameActionTypes
   ): IGameState {
     switch (action.type) {
-      case SET_GAME_STATE:{
+      case SET_GAME_PIECES:{
         const newState = {...state};
-        const {payload} = action as SetGameStateAction
+        const {payload} = action as SetGamePiecesAction
         newState.players = payload.players;
         newState.nodes = payload.nodes;
         newState.squares = payload.squares;
         newState.lines = payload.lines;
+        newState.counters = payload.counters;
         return newState
       };
       case SET_GAME_SIZES:{
