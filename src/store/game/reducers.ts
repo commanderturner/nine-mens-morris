@@ -2,9 +2,9 @@ import {
     GameActionTypes,
     IGameState,
     SET_GAME_PIECES,
-    SetGameSizesAction,
     SetGamePiecesAction,
-    SET_GAME_SIZES
+    SET_GAME_TURN,
+    SetGameTurnAction,
   } from "./types";
   
   const initialState: IGameState = {
@@ -13,17 +13,7 @@ import {
     squares: {},
     lines: {},
     counters: {},
-    sizes: {
-      baseUnits: {
-        boardAreaLength: 8,
-        baseMultiplier: 100,
-        squareSize: 10,
-      },
-      window: {
-        width: 800,
-        height: 800,
-      },
-    }
+    turns: {},
   };
   
   export function gameReducer(
@@ -40,11 +30,11 @@ import {
         newState.lines = payload.lines;
         newState.counters = payload.counters;
         return newState
-      };
-      case SET_GAME_SIZES:{
+      }
+      case SET_GAME_TURN:{
         const newState = {...state};
-        const {payload} = action as SetGameSizesAction
-        newState.sizes = payload.sizes;
+        const {payload} = action as SetGameTurnAction
+        newState.turns[payload.turn.id] = payload.turn;
         return newState
       };
       default:

@@ -1,9 +1,17 @@
-import { UPDATE_SESSION, AppState, AppActionTypes } from "./types";
+import { AppState, AppActionTypes, SET_APP_SIZES, SetAppSizesAction } from "./types";
 
 const initialState: AppState = {
-  loggedIn: false,
-  session: "",
-  userName: ""
+  sizes: {
+    baseUnits: {
+      boardAreaLength: 8,
+      baseMultiplier: 100,
+      squareSize: 10,
+    },
+    window: {
+      width: 800,
+      height: 800,
+    },
+  }    
 };
 
 export function appReducer(
@@ -11,12 +19,12 @@ export function appReducer(
   action: AppActionTypes
 ): AppState {
   switch (action.type) {
-    case UPDATE_SESSION: {
-      return {
-        ...state,
-        ...action.payload
-      };
-    }
+    case SET_APP_SIZES:{
+      const newState = {...state};
+      const {payload} = action as SetAppSizesAction
+      newState.sizes = payload.sizes;
+      return newState
+    };
     default:
       return state;
   }

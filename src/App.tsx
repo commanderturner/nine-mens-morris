@@ -14,13 +14,13 @@ import {
 import GameBoardComponent from './components/GameBoardComponent';
 import NewGameButton from './components/NewGameButton';
 import { AppState } from './store';
-import { ISizes } from './store/game/types';
-import { setGameSizes } from './store/game/actions';
+import { ISizes } from './store/app/types';
+import { setAppSizes } from './store/app/actions';
 import PlayerInfoComponent from './components/PlayerInfoComponent';
 
 interface AppProps {
   sizes: ISizes;
-  setGameSizes: typeof setGameSizes;
+  setAppSizes: typeof setAppSizes;
 }
 class App extends Component<AppProps> {
   handleResize = ()=>{
@@ -33,7 +33,7 @@ class App extends Component<AppProps> {
     sizes.window = windowDimensions;
     sizes.baseUnits.baseMultiplier = baseMultiplier;
     sizes.baseUnits.squareSize = Math.round(baseMultiplier / 10);
-    this.props.setGameSizes(sizes);
+    this.props.setAppSizes(sizes);
   }
   componentDidMount(){
     window.addEventListener('resize', this.handleResize);
@@ -67,10 +67,10 @@ class App extends Component<AppProps> {
   }
 }
 const mapStateToProps = (state: AppState) => ({
-  sizes: state.game.sizes,
+  sizes: state.app.sizes,
 });
 
 export default connect(
   mapStateToProps,
-  {setGameSizes}
+  {setAppSizes}
 )(App);

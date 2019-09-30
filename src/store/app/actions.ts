@@ -1,8 +1,10 @@
-import { AppState, UPDATE_SESSION } from "./types";
+import {ISizes, SET_APP_SIZES } from "./types";
 
-export function updateSession(newSession: AppState) {
+export function setAppSizes(sizes: ISizes) {
   return {
-    type: UPDATE_SESSION,
-    payload: newSession
+    type: SET_APP_SIZES,
+    payload: {
+      sizes
+    }
   };
 }

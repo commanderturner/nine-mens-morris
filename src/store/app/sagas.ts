@@ -1,8 +1,9 @@
-import { put, takeEvery } from 'redux-saga/effects'
-import { UpdateSessionAction } from './types';
+import { put, takeEvery } from 'redux-saga/effects';
+
+import { SetAppSizesAction } from './types';
 
 // worker Saga: will be fired on USER_FETCH_REQUESTED actions
-function* fetchUser(action: UpdateSessionAction) {
+function* fetchUser(action: SetAppSizesAction) {
    try {
         const user = {};
       yield put({type: "USER_FETCH_SUCCEEDED", user});

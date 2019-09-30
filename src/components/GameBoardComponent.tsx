@@ -5,7 +5,7 @@ import { BoardLine } from './BoardLine';
 import { IBoardNode } from '../models/BoardNode';
 import { NodeComponent } from './NodeComponent';
 import { AppState } from '../store';
-import { ISizes } from '../store/game/types';
+import { ISizes } from '../store/app/types';
 import { ILine } from '../models/Line';
  
 type GameBoardComponentProps = {
@@ -54,7 +54,7 @@ const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, 
 const mapStateToProps = (state: AppState) => ({
   nodes: state.game.nodes,
   lines: state.game.lines,
-  sizes: state.game.sizes,
+  sizes: state.app.sizes,
 });
 
 export default connect(

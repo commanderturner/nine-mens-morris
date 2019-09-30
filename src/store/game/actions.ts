@@ -1,4 +1,5 @@
-import { SET_GAME_PIECES, ISizes, SET_GAME_SIZES, IPlayerDictionary, INodeDictionary, ISquareDictionary, ILineDictionary, ICounterDictionary } from "./types";
+import { SET_GAME_PIECES, IPlayerDictionary, INodeDictionary, ISquareDictionary, ILineDictionary, ICounterDictionary, SET_GAME_TURN } from "./types";
+import { ITurn } from "../../models/Turn";
 
 export function setGameState(players:IPlayerDictionary,nodes:INodeDictionary,squares: ISquareDictionary, lines: ILineDictionary, counters: ICounterDictionary) {
   return {
@@ -12,11 +13,12 @@ export function setGameState(players:IPlayerDictionary,nodes:INodeDictionary,squ
     }
   };
 }
-export function setGameSizes(sizes: ISizes) {
+
+export function setTurn(turn: ITurn){
   return {
-    type: SET_GAME_SIZES,
+    type: SET_GAME_TURN,
     payload: {
-      sizes
+      turn,
     }
-  };
+  }
 }

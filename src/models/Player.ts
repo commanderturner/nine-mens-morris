@@ -1,7 +1,7 @@
 import { Counter } from "./Counter";
 import { ICounterDictionary } from "../store/game/types";
 
-export type PlayerId = 1 | 2;
+export type PlayerId = '1' | '2';
 
 export interface IPlayer {
     id: PlayerId;
@@ -23,7 +23,8 @@ export class Player implements IPlayer {
     public static getCounters(player: IPlayer): ICounterDictionary{
         const counterDictionary: ICounterDictionary = {};
         for(let i=1; i< 10; i++){
-            counterDictionary[`${player.id}-${i}`] = new Counter(i, player);
+            const counter = new Counter(i, player);
+            counterDictionary[counter.key] = counter
         }
         return counterDictionary;
     }

@@ -1,17 +1,25 @@
 // Describing the shape of the system's slice of state
 export interface AppState {
-    loggedIn: boolean;
-    session: string;
-    userName: string;
+    sizes: ISizes;
   }
-  
+  export interface ISizes {
+    baseUnits: {
+      boardAreaLength: number;
+      baseMultiplier: number;
+      squareSize: number;
+    }
+    window: {
+      width: number;
+      height: number;
+    }
+  }
   // Describing the different ACTION NAMES available
-  export const UPDATE_SESSION = "UPDATE_SESSION";
-  
-  export interface UpdateSessionAction {
-    type: typeof UPDATE_SESSION;
-    payload: AppState;
+  export const SET_APP_SIZES = 'SET_APP_SIZES';
+  export interface SetAppSizesAction {
+    type: typeof SET_APP_SIZES;
+    payload: {
+      sizes: ISizes;
+    };
   }
-  
-  export type AppActionTypes = UpdateSessionAction;
+  export type AppActionTypes =  SetAppSizesAction;
   

@@ -2,8 +2,9 @@ import { Square, SquareId } from "./Square";
 import { IBoardNode } from "./BoardNode";
 import { Player } from "./Player";
 import { ILine, Line } from "./Line";
-import { IGamePieces, IPlayerDictionary, INodeDictionary, ISquareDictionary, ILineDictionary, ICounterDictionary } from "../store/game/types";
-export class Game implements IGamePieces {
+import { IPlayerDictionary, INodeDictionary, ISquareDictionary, ILineDictionary, ICounterDictionary, IGameState, ITurnDictionary } from "../store/game/types";
+import { Turn } from "./Turn";
+export class Game implements IGameState {
     // square ids outside in ie: 1:outer, 2: middle, 3: inner
     public static squaresIds: SquareId[] = [1, 2, 3];
     constructor(){
@@ -24,6 +25,10 @@ export class Game implements IGamePieces {
         middleLines.forEach(middleLine=>{
             this.lines[middleLine.id] = middleLine;
         })
+        const firstTurn  = new Turn({},this.players, this.counters).poco;
+        this.turns = {};
+        this.turns[firstTurn.id] = firstTurn;
+
     }
     private getMiddleLines(): ILine[]{
             const lines = [];
@@ -45,8 +50,8 @@ export class Game implements IGamePieces {
 
     private getNewPlayers(): IPlayerDictionary{
         return {
-            1: new Player(1, true, 'red').poco,
-            2: new Player(2, false, 'blue').poco
+            1: new Player('1', true, 'red').poco,
+            2: new Player('2', false, 'blue').poco
         };
     }
     private getNewCounters(): ICounterDictionary{
@@ -61,7 +66,7 @@ export class Game implements IGamePieces {
     public squares: ISquareDictionary = {};
     public lines: ILineDictionary = {};
     public counters: ICounterDictionary = {};
-
+    public turns: ITurnDictionary = {};
 }
 
 
