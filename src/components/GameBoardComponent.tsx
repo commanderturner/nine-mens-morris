@@ -2,15 +2,18 @@ import React, { FunctionComponent } from 'react';
 import {connect } from 'react-redux';
 import { Stage, Layer } from 'react-konva';
 import { BoardLine } from './BoardLine';
-import { IBoardNode } from '../models/BoardNode';
 import { NodeComponent } from './NodeComponent';
 import { AppState } from '../store';
 import { ISizes } from '../store/app/types';
-import { ILine } from '../models/Line';
+import { INodeDictionary, ILineDictionary, ITurnDictionary, ICounterDictionary } from '../store/game/types';
+import { CounterComponent } from './CounterComponent';
  
 type GameBoardComponentProps = {
-  nodes: {[id:string]:IBoardNode};
-  lines: {[id:string]: ILine};
+  nodes: INodeDictionary;
+  lines: ILineDictionary;
+  counters: ICounterDictionary;
+  turns: ITurnDictionary;
+  currentTurnId: string | null;
   sizes: ISizes;
 }
 // game has multiplier (eg100) and node size (offset on lines)
@@ -19,13 +22,47 @@ type GameBoardComponentProps = {
 // lines have ids and base coords and ids of nodes and use themselves to draw lines
 // once created stored in state
 // components use multipliers to draw/hide show lines on game update or eg screen resize
-const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, lines, sizes}) =>{
+const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, lines, counters, sizes, turns, currentTurnId}) =>{
+  const getClickHandler = (): ((id:string)=>void) | null=>{
+    const currentTurn = currentTurnId ? turns[currentTurnId] : null;
+    if (!currentTurn) return null;
+    switch (currentTurn.phase){
+      case 'deploy': return (id)=>alert(`you are deploying counter to node ${id}`)
+      case 'move': return (id)=>alert(`you are selecting node ${id} and should not be a counter here so should not do anything`)
+    }
+  }
   const baseMultiplier = sizes.baseUnits.baseMultiplier;
   const boardNodeComponents = Object.keys(nodes).map((nodeKey: string) => {
     const node = nodes[nodeKey];
     const {x, y} = node.baseCoordinate;
     const size = sizes.baseUnits.squareSize;
-    return <NodeComponent key={`node-${nodeKey}`} x={x * baseMultiplier} y={y * baseMultiplier} colour='green' size={size} />
+    return (
+    <NodeComponent 
+      boardNodeId={nodeKey}
+      clickHandler={getClickHandler()}
+      key={`node-${nodeKey}`} 
+      x={x * baseMultiplier} 
+      y={y * baseMultiplier} 
+      colour='green' 
+      size={size} 
+    />);
+  });
+  const counterComponents = Object.keys(counters)
+  .filter((counterKey=> counters[counterKey].status==='in-play'))
+  .map((counterKey: string)=>{
+    const counter = counters[counterKey];
+    const {x, y} = counter.baseCoordinate ? counter.baseCoordinate : {x:0, y: 0};
+    const radius = (sizes.baseUnits.squareSize) * 2;
+    return (
+    <CounterComponent 
+      counterId={counterKey}
+      clickHandler={getClickHandler()}
+      key={`counter-${counterKey}`} 
+      x={x * baseMultiplier} 
+      y={y * baseMultiplier} 
+      colour={counter.colour} 
+      radius={radius} 
+    />);
   });
   const lineComponents: JSX.Element[] = [];
   const offset = sizes.baseUnits.squareSize / 2;
@@ -48,12 +85,16 @@ const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, 
         <Layer>
           {boardNodeComponents}
         </Layer>
+        <Layer>{counterComponents}</Layer>
       </Stage>
   );
 }
 const mapStateToProps = (state: AppState) => ({
   nodes: state.game.nodes,
   lines: state.game.lines,
+  counters: state.game.counters,
+  turns: state.game.turns,
+  currentTurnId: state.game.currentTurnId,
   sizes: state.app.sizes,
 });
 

@@ -1,27 +1,26 @@
 import React, {FunctionComponent} from 'react';
-import { Rect } from 'react-konva';
+import { Circle } from 'react-konva';
 // import Konva from 'konva';
-type NodeComponentProps = {
+type CounterComponentProps = {
+    counterId: string;
     x: number,
     y: number, 
     colour: string,
-    size: number,
-    boardNodeId: string,
+    radius: number,
     clickHandler: ((boardNodeId: string)=>void) | null;
 }
-export const NodeComponent: FunctionComponent<NodeComponentProps> = ({x, y, colour, size, boardNodeId, clickHandler}) => {
+export const CounterComponent: FunctionComponent<CounterComponentProps> = ({counterId, x, y, colour, radius, clickHandler}) => {
     
     const handleClick = () => {
         // alert('you want this colour' + Konva.Util.getRandomColor());
-        if(clickHandler) clickHandler(boardNodeId);
+      if(clickHandler) clickHandler(counterId);
     };
 
       return (
-        <Rect
+        <Circle
           x={x}
           y={y}
-          width={size}
-          height={size}
+          radius={radius}
           fill={colour}
           shadowBlur={2}
           onClick={handleClick}

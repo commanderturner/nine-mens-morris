@@ -6,7 +6,7 @@ export interface ICounter{
     counterId: number;
     playerId: PlayerId;
     colour: string;
-    baseCoords: Coordinate | null;
+    baseCoordinate: Coordinate | null;
     status: CounterStatus;
     key: string;
 }
@@ -20,7 +20,7 @@ export class Counter implements ICounter {
     counterId: number;
     playerId: PlayerId;
     colour: string;
-    baseCoords: Coordinate | null = null;
+    baseCoordinate: Coordinate | null = null;
     status: CounterStatus = 'not-deployed'
     key: string;
 
@@ -29,7 +29,7 @@ export class Counter implements ICounter {
             counterId: this.counterId,
             playerId: this.playerId,
             colour: this.colour,
-            baseCoords: this.baseCoords,
+            baseCoordinate: this.baseCoordinate,
             status: this.status,
             key: this.key,
         }

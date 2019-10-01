@@ -21,6 +21,7 @@ export interface IGamePieces {
 
   export interface IGameState extends IGamePieces{
     turns: ITurnDictionary;
+    currentTurnId: string | null;
   }
   
   // Describing the different ACTION NAMES available

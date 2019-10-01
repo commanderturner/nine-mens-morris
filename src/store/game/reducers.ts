@@ -14,6 +14,7 @@ import {
     lines: {},
     counters: {},
     turns: {},
+    currentTurnId: null,
   };
   
   export function gameReducer(
@@ -34,6 +35,7 @@ import {
       case SET_GAME_TURN:{
         const newState = {...state};
         const {payload} = action as SetGameTurnAction
+        newState.currentTurnId = payload.turn.id;
         newState.turns[payload.turn.id] = payload.turn;
         return newState
       };

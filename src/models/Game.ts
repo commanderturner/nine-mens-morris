@@ -28,7 +28,6 @@ export class Game implements IGameState {
         const firstTurn  = new Turn({},this.players, this.counters).poco;
         this.turns = {};
         this.turns[firstTurn.id] = firstTurn;
-
     }
     private getMiddleLines(): ILine[]{
             const lines = [];
@@ -67,6 +66,7 @@ export class Game implements IGameState {
     public lines: ILineDictionary = {};
     public counters: ICounterDictionary = {};
     public turns: ITurnDictionary = {};
+    public currentTurnId: string | null = null;
 }
 
 

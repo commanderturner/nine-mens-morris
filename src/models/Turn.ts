@@ -63,9 +63,9 @@ export class Turn implements ITurn {
     private static getIntructionFromPhaseAndPlayers(phase: Phase, players: IPlayerDictionary, playerId: PlayerId, counterIdToDeploy: string | null){
         const player = players[playerId];
         if(phase === 'deploy'){
-            return `${player.name} place counter ${counterIdToDeploy}`;
+            return `${player.name} place a counter`;
         } else {
-            return `${player.name} move a counter`; 
+            return `${player.name} it is your move`; 
         }
     }
     private static getCounterIdToDeploy(phase: Phase, counters: ICounterDictionary, playerId: PlayerId): string | null {
