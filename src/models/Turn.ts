@@ -41,7 +41,7 @@ export class Turn implements ITurn {
             const turn = turns[turnId];
             if(!maxTurn) {
                 maxTurn = turn;
-            } else if(maxTurn.id < turn.id){
+            } else if(maxTurn.id <= turn.id){
                 maxTurn = turn;
             }
         });

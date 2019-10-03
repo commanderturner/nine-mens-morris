@@ -5,6 +5,8 @@ import {
     SetGamePiecesAction,
     SET_GAME_TURN,
     SetGameTurnAction,
+    // DEPLOY_COUNTER,
+    // DeployCounterAction,
   } from "./types";
   
   const initialState: IGameState = {
@@ -39,6 +41,18 @@ import {
         newState.turns[payload.turn.id] = payload.turn;
         return newState
       };
+      // case DEPLOY_COUNTER:{
+      //   const newState = {...state};
+      //   const {payload} = action as DeployCounterAction
+      //   newState.currentTurnId = payload.turn.id;
+      //   newState.turns[payload.turn.id] = payload.turn;
+      //   const nodeId = action.payload.nodeId;
+      //   const node = newState.nodes[nodeId];
+      //   const baseCoordinate = {...node.baseCoordinate}
+      //   newState.counters[payload.counterId].baseCoordinate = baseCoordinate;
+      //   newState.counters[payload.counterId].status = 'in-play';
+      //   return newState
+      // }
       default:
         return state;
     }

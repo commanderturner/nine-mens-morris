@@ -27,6 +27,7 @@ export interface IGamePieces {
   // Describing the different ACTION NAMES available
   export const SET_GAME_PIECES = 'SET_GAME_PIECES';
   export const SET_GAME_TURN = 'SET_GAME_TURN';
+  export const DEPLOY_COUNTER = 'DEPLOY_COUNTER';
  
 
   export interface SetGamePiecesAction {
@@ -39,8 +40,14 @@ export interface IGamePieces {
       turn: ITurn;
     }
   }
+  export interface DeployCounterAction {
+    type: typeof DEPLOY_COUNTER;
+    payload: {
+      nodeId: string;
+    }
+  }
 
 
   
-  export type GameActionTypes = SetGamePiecesAction | SetGameTurnAction;
+  export type GameActionTypes = SetGamePiecesAction | SetGameTurnAction | DeployCounterAction;
   

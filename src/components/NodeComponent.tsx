@@ -7,16 +7,15 @@ type NodeComponentProps = {
     colour: string,
     size: number,
     boardNodeId: string,
-    clickHandler: ((boardNodeId: string)=>void) | null;
+    clickHandler: ((nodeId:string) => void) | null,
 }
 export const NodeComponent: FunctionComponent<NodeComponentProps> = ({x, y, colour, size, boardNodeId, clickHandler}) => {
     
     const handleClick = () => {
-        // alert('you want this colour' + Konva.Util.getRandomColor());
-        if(clickHandler) clickHandler(boardNodeId);
-    };
+      if(clickHandler) clickHandler(boardNodeId);
+    }
 
-      return (
+    return (
         <Rect
           x={x}
           y={y}

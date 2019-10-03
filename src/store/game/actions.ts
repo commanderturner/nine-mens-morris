@@ -1,4 +1,4 @@
-import { SET_GAME_PIECES, IPlayerDictionary, INodeDictionary, ISquareDictionary, ILineDictionary, ICounterDictionary, SET_GAME_TURN } from "./types";
+import { SET_GAME_PIECES, IPlayerDictionary, INodeDictionary, ISquareDictionary, ILineDictionary, ICounterDictionary, SET_GAME_TURN, DEPLOY_COUNTER } from "./types";
 import { ITurn } from "../../models/Turn";
 
 export function setGameState(players:IPlayerDictionary,nodes:INodeDictionary,squares: ISquareDictionary, lines: ILineDictionary, counters: ICounterDictionary) {
@@ -19,6 +19,14 @@ export function setTurn(turn: ITurn){
     type: SET_GAME_TURN,
     payload: {
       turn,
+    }
+  }
+}
+export function deployCounter(nodeId: string){
+  return {
+    type: DEPLOY_COUNTER,
+    payload: { 
+      nodeId
     }
   }
 }

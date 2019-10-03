@@ -2,19 +2,22 @@ import React, { FunctionComponent } from 'react';
 import {connect } from 'react-redux';
 import { Stage, Layer } from 'react-konva';
 import { BoardLine } from './BoardLine';
-import { NodeComponent } from './NodeComponent';
+import {NodeComponent} from './NodeComponent';
 import { AppState } from '../store';
 import { ISizes } from '../store/app/types';
-import { INodeDictionary, ILineDictionary, ITurnDictionary, ICounterDictionary } from '../store/game/types';
+import { INodeDictionary, ILineDictionary, ITurnDictionary, ICounterDictionary, IPlayerDictionary } from '../store/game/types';
 import { CounterComponent } from './CounterComponent';
+import { deployCounter } from '../store/game/actions';
  
 type GameBoardComponentProps = {
   nodes: INodeDictionary;
   lines: ILineDictionary;
   counters: ICounterDictionary;
+  players: IPlayerDictionary;
   turns: ITurnDictionary;
   currentTurnId: string | null;
   sizes: ISizes;
+  deployCounter: typeof deployCounter;
 }
 // game has multiplier (eg100) and node size (offset on lines)
 // squares generate nodes, but don't store them
@@ -22,15 +25,8 @@ type GameBoardComponentProps = {
 // lines have ids and base coords and ids of nodes and use themselves to draw lines
 // once created stored in state
 // components use multipliers to draw/hide show lines on game update or eg screen resize
-const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, lines, counters, sizes, turns, currentTurnId}) =>{
-  const getClickHandler = (): ((id:string)=>void) | null=>{
-    const currentTurn = currentTurnId ? turns[currentTurnId] : null;
-    if (!currentTurn) return null;
-    switch (currentTurn.phase){
-      case 'deploy': return (id)=>alert(`you are deploying counter to node ${id}`)
-      case 'move': return (id)=>alert(`you are selecting node ${id} and should not be a counter here so should not do anything`)
-    }
-  }
+const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, lines, counters, sizes, deployCounter}) =>{
+
   const baseMultiplier = sizes.baseUnits.baseMultiplier;
   const boardNodeComponents = Object.keys(nodes).map((nodeKey: string) => {
     const node = nodes[nodeKey];
@@ -39,12 +35,12 @@ const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, 
     return (
     <NodeComponent 
       boardNodeId={nodeKey}
-      clickHandler={getClickHandler()}
       key={`node-${nodeKey}`} 
       x={x * baseMultiplier} 
       y={y * baseMultiplier} 
       colour='green' 
-      size={size} 
+      size={size}
+      clickHandler={(nodeId: string)=> deployCounter(nodeId)}
     />);
   });
   const counterComponents = Object.keys(counters)
@@ -56,7 +52,6 @@ const GameBoardComponent: FunctionComponent<GameBoardComponentProps> = ({nodes, 
     return (
     <CounterComponent 
       counterId={counterKey}
-      clickHandler={getClickHandler()}
       key={`counter-${counterKey}`} 
       x={x * baseMultiplier} 
       y={y * baseMultiplier} 
@@ -96,8 +91,9 @@ const mapStateToProps = (state: AppState) => ({
   turns: state.game.turns,
   currentTurnId: state.game.currentTurnId,
   sizes: state.app.sizes,
+  players:state.game.players,
 });
 
 export default connect(
-  mapStateToProps,
+  mapStateToProps,{deployCounter}
 )(GameBoardComponent);
