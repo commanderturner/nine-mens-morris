@@ -28,6 +28,9 @@ export interface IGamePieces {
   export const SET_GAME_PIECES = 'SET_GAME_PIECES';
   export const SET_GAME_TURN = 'SET_GAME_TURN';
   export const DEPLOY_COUNTER = 'DEPLOY_COUNTER';
+  export const UPDATE_COUNTER = 'UPDATE_COUNTER';
+  export const UPDATE_NODE = 'UPDATE_NODE';
+  export const UPDATE_TURN = 'UPDATE_TURN';
  
 
   export interface SetGamePiecesAction {
@@ -46,8 +49,27 @@ export interface IGamePieces {
       nodeId: string;
     }
   }
+  export interface UpdateCounterAction {
+    type: typeof UPDATE_COUNTER;
+    payload: {
+      counter: ICounter;
+    }
+  }
+
+  export interface UpdateNodeAction {
+    type: typeof UPDATE_NODE;
+    payload: {
+      node: IBoardNode;
+    }
+  }
+  export interface UpdateTurnAction {
+    type: typeof UPDATE_TURN;
+    payload: {
+      turn: ITurn;
+    }
+  }
 
 
   
-  export type GameActionTypes = SetGamePiecesAction | SetGameTurnAction | DeployCounterAction;
+  export type GameActionTypes = SetGamePiecesAction | SetGameTurnAction | DeployCounterAction | UpdateCounterAction | UpdateNodeAction | UpdateTurnAction;
   

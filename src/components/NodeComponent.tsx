@@ -13,6 +13,7 @@ export const NodeComponent: FunctionComponent<NodeComponentProps> = ({x, y, colo
     
     const handleClick = () => {
       if(clickHandler) clickHandler(boardNodeId);
+      // alert('you clicked')
     }
 
     return (
@@ -24,6 +25,7 @@ export const NodeComponent: FunctionComponent<NodeComponentProps> = ({x, y, colo
           fill={colour}
           shadowBlur={2}
           onClick={handleClick}
+          onTap={handleClick}
         />
       );
   }

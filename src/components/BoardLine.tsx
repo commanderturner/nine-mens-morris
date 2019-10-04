@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import { Line } from 'react-konva';
-import Konva from 'konva';
+// import Konva from 'konva';
 export type BoardLineProps = {
     x1: number,
     x2: number,
@@ -10,9 +10,9 @@ export type BoardLineProps = {
 }
 export const BoardLine: FunctionComponent<BoardLineProps> = ({x1, y1, x2, y2,colour='blue'}) => {
     
-    const handleClick = () => {
-        alert('you want this colour' +Konva.Util.getRandomColor());
-    };
+    // const handleClick = () => {
+    //     alert('you want this colour' +Konva.Util.getRandomColor());
+    // };
 
       return (
         <Line
@@ -21,7 +21,7 @@ export const BoardLine: FunctionComponent<BoardLineProps> = ({x1, y1, x2, y2,col
           height={50}
           stroke={colour}
           shadowBlur={5}
-          onClick={handleClick}
+          // onClick={handleClick}
         />
       );
   }

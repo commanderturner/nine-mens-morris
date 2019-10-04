@@ -5,8 +5,12 @@ import {
     SetGamePiecesAction,
     SET_GAME_TURN,
     SetGameTurnAction,
-    // DEPLOY_COUNTER,
-    // DeployCounterAction,
+    UPDATE_COUNTER,
+    UpdateCounterAction,
+    UpdateNodeAction,
+    UPDATE_NODE,
+    UpdateTurnAction,
+    UPDATE_TURN,
   } from "./types";
   
   const initialState: IGameState = {
@@ -38,21 +42,31 @@ import {
         const newState = {...state};
         const {payload} = action as SetGameTurnAction
         newState.currentTurnId = payload.turn.id;
+        newState.turns = {...newState.turns};
         newState.turns[payload.turn.id] = payload.turn;
         return newState
       };
-      // case DEPLOY_COUNTER:{
-      //   const newState = {...state};
-      //   const {payload} = action as DeployCounterAction
-      //   newState.currentTurnId = payload.turn.id;
-      //   newState.turns[payload.turn.id] = payload.turn;
-      //   const nodeId = action.payload.nodeId;
-      //   const node = newState.nodes[nodeId];
-      //   const baseCoordinate = {...node.baseCoordinate}
-      //   newState.counters[payload.counterId].baseCoordinate = baseCoordinate;
-      //   newState.counters[payload.counterId].status = 'in-play';
-      //   return newState
-      // }
+      case UPDATE_COUNTER:{
+        const {payload} = action as UpdateCounterAction
+        const newState = {...state};
+        newState.counters = {...newState.counters};
+        newState.counters[payload.counter.key] = payload.counter;
+        return newState
+      }
+      case UPDATE_NODE:{
+        const {payload} = action as UpdateNodeAction
+        const newState = {...state};
+        newState.nodes = {...newState.nodes};
+        newState.nodes[payload.node.key] = payload.node;
+        return newState
+      }
+      case UPDATE_TURN:{
+        const {payload} = action as UpdateTurnAction
+        const newState = {...state};
+        newState.turns = {...newState.turns};
+        newState.turns[payload.turn.id] = payload.turn;
+        return newState
+      }
       default:
         return state;
     }

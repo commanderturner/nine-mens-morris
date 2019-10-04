@@ -11,6 +11,7 @@ export interface IBoardNode {
     id: string;
     occupationStatus: NodeOccupationStatus;
     baseCoordinate: Coordinate;
+    key: string;
 }
 // described by square(1-3) (outer=>middle=>inner), and square node position (1-8) (top left, clockwise)
 export class BoardNode implements IBoardNode {
@@ -19,6 +20,7 @@ export class BoardNode implements IBoardNode {
         this.position = position;
         this.occupationStatus = null;
         this.id = `${squareId}-${position}`;
+        this.key = this.id;
         this.baseCoordinate = BoardNode.getBaseCoordinate(squareId, position);
     }
 
@@ -61,6 +63,7 @@ export class BoardNode implements IBoardNode {
     public id: string;
     public occupationStatus: NodeOccupationStatus;
     public baseCoordinate: Coordinate;
+    public key: string;
     public get poco() : IBoardNode{
         return {
             squareId: this.squareId,
@@ -68,6 +71,7 @@ export class BoardNode implements IBoardNode {
             id: this.id,
             occupationStatus: this.occupationStatus,
             baseCoordinate: this.baseCoordinate,
+            key: this.key,
         }
     }
 }

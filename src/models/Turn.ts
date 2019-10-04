@@ -4,7 +4,7 @@ import { IPlayerDictionary, ICounterDictionary, ITurnDictionary } from "../store
 import { ICounter } from "./Counter"
 
 export type Action = {
-    counterId: string;
+    counterKey: string;
     coord: Coordinate;
 }
 export type Phase = 'deploy' | 'move'
@@ -13,7 +13,7 @@ export interface ITurn {
     phase: Phase;
     instruction: string;
     playerId: PlayerId;
-    counterIdToDeploy: string | null;
+    counterKeyToDeploy: string | null;
     actionTaken: Action | null;
 }
 
@@ -23,13 +23,13 @@ export class Turn implements ITurn {
         this.id = playerAndTurnId.turnId;
         this.playerId = playerAndTurnId.playerId;
         this.phase = Turn.getPhaseFromCounters(counters);
-        this.counterIdToDeploy = Turn.getCounterIdToDeploy(this.phase, counters, this.playerId);
-        this.instruction = Turn.getIntructionFromPhaseAndPlayers(this.phase, players,this.playerId,this.counterIdToDeploy);
+        this.counterKeyToDeploy = Turn.getCounterIdToDeploy(this.phase, counters, this.playerId);
+        this.instruction = Turn.getIntructionFromPhaseAndPlayers(this.phase, players,this.playerId);
     }
     public id: string;
     public playerId: PlayerId;
     public phase: Phase;
-    public counterIdToDeploy: string | null;
+    public counterKeyToDeploy: string | null;
     public instruction = '';
     public actionTaken = null;
 
@@ -60,7 +60,7 @@ export class Turn implements ITurn {
         return Object.keys(counters).map(counterKey=>counters[counterKey].status).some(status => status === 'not-deployed') ? 'deploy' : 'move';
     }
 
-    private static getIntructionFromPhaseAndPlayers(phase: Phase, players: IPlayerDictionary, playerId: PlayerId, counterIdToDeploy: string | null){
+    private static getIntructionFromPhaseAndPlayers(phase: Phase, players: IPlayerDictionary, playerId: PlayerId){
         const player = players[playerId];
         if(phase === 'deploy'){
             return `${player.name} place a counter`;
@@ -87,7 +87,7 @@ export class Turn implements ITurn {
     public get poco(): ITurn{
         return {
             id: this.id,
-            counterIdToDeploy: this.counterIdToDeploy,
+            counterKeyToDeploy: this.counterKeyToDeploy,
             instruction: this.instruction,
             phase: this.phase,
             playerId: this.playerId,
